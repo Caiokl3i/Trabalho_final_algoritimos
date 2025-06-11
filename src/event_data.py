@@ -42,11 +42,3 @@ events_list = [
         ]
     }
 ]
-
-# teste de importação dos dados
-
-for item in participants_list:
-    print(item)
-
-for item in events_list: 
-    print(item)
