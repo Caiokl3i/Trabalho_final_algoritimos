@@ -1,3 +1,7 @@
+'''
+Arquivo com os dados dos participantes em uma lista de dicionários
+'''
+
 participants_list = [
     {
         'cpf': '12345678900',

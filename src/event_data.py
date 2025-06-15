@@ -1,5 +1,9 @@
 from participant_data import participants_list
 
+'''
+Arquivo com os dados dos eventos em uma lista de dicionários
+'''
+
 events_list = [
     {
         'nome': 'Workshop de IA Generativa',
