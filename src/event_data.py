@@ -44,5 +44,13 @@ events_list = [
         'participantes_event': [
             participants_list[4]
         ]
+    },
+    {
+        'nome': 'Palestra sobre usos do Chatgpt',
+        'data': '08-06-2025',
+        'tema_central': 'Inteligência Artificial',
+        'participantes_event': [
+            participants_list[4], participants_list[1]
+        ]
     }
 ]
