@@ -1,3 +1,4 @@
+from InquirerPy import inquirer
 from event_data import events_list
 
 def show_event_list():
@@ -29,3 +30,34 @@ def show_participants_event():
             print(f'Email: {participants["email"]} \n')
     else:
         pass
+
+def new_event_register():
+    '''
+    - Funcionalidade em desenvolvimento
+    Implementação inicial do cadastro de um novo evento usando inquirer.
+    Procurar forma de vincular participantes ao evento
+    Arrumar formatação da data
+    mudar forma de escolher o tema central
+    '''
+    
+    print(f'===== CADASTRO DE UM NOVO EVENTO =====')
+    nome = inquirer.text(
+        message='NOME: ',
+        validate=lambda result: len(result) > 0 or "É obrigatorio preencher esse campo"
+    ).execute()
+    data = inquirer.text(
+        message='DATA: '
+    ).execute()
+    tema_central = inquirer.text(
+        message='TEMA: '
+    ).execute()
+    
+    evento = {
+        'nome': nome,
+        'data': data,
+        'tema_central': tema_central
+    }
+    
+    events_list.append(evento)
+    
+    print(f"Evento {nome} cadastrado com sucesso!!")
