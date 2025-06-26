@@ -61,3 +61,28 @@ def new_event_register():
     events_list.append(evento)
     
     print(f"Evento {nome} cadastrado com sucesso!!")
+
+def event_remove():
+    '''
+    - Funcionalidade em desenvolvimento.
+    Implementação inicial da remoção de evento.
+    Ajustar funcionalidade para facilitar o entendimento do usuário.
+    '''
+    
+    choices = []
+    for evento in events_list:
+        choices.append(evento['nome'])
+    
+    evento_excluir = inquirer.select(
+        message='Qual evento deseja excluir? \n',
+        choices=choices
+    ).execute()
+    
+    for evento in events_list:
+        for chave in evento.values():
+            if chave == evento_excluir:
+                events_list.remove(evento)
+    
+    show_event_list()
+
+event_remove()

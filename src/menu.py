@@ -33,5 +33,4 @@ while True:
         'buscar_eventos': 'Função',
         'sair': 'Função',
     }
-    
     print(f'{escolhas[option]}')

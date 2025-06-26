@@ -14,6 +14,7 @@ def frequency_report():
     temas = [tema['tema_central'] for tema in events_list]
 
     contagem = dict(Counter(temas))
+    print(contagem)
 
     print('Quantidade de eventos por tema: \n')
     for nome, qtde in contagem.items():
