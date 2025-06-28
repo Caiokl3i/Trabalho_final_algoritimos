@@ -18,7 +18,7 @@ def show_event_list():
         print(f'  Data: {item["data"]}')
         print(f'  Tema: {item["tema_central"]}\n')
 
-def show_participants_event():
+def show_participants_by_event():
     '''
     Exibe a lista de eventos para que o usuário escolha um,
     e então mostra os participantes do evento escolhido.
