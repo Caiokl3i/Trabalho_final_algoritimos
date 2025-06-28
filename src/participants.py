@@ -92,3 +92,20 @@ def detect_duplicate_participants(cpf, event_name):
                     return False
     return True
 
+def show_events_by_participant(cpf):
+    '''
+    Mostra todos os eventos em que um participante está inscrito (com base no CPF).
+    '''
+    
+    events_name_by_partic = [
+        (event['nome'], event['data'])
+        for event in events_list
+        for partic in event['participantes_event']
+        if cpf == partic['cpf']
+    ]
+    
+    # uso de tuplas para chave e valor -- mais leve e mais prático -- 
+    
+    print(f'\n----- EVENTOS DO PARTICIPANTE -----\n')
+    for name, data in events_name_by_partic:
+        print(f'- {name}\n   Data: {data}\n')
