@@ -1,4 +1,5 @@
 from participant_data import participants_list
+from event_data import events_list
 from InquirerPy import inquirer
 
 def search_participant_for_cpf(cpf):
@@ -74,3 +75,20 @@ def edit_participant_data():
     participant['nome'] = nome
     participant['email'] = email
     participant['preferencias_tematicas'] = [themes_preffer]
+
+def detect_duplicate_participants(cpf, event_name):
+    '''
+    Verifica se o CPF informado já está inscrito no evento.
+
+    Retorna:
+        True  – se o participante ainda não estiver no evento (pode adicionar)
+        False – se o participante já estiver inscrito (duplicata)
+    '''
+
+    for evento in events_list:
+        if evento['nome'] == event_name:
+            for participante in evento['participantes_event']:
+                if cpf == participante['cpf']:
+                    return False
+    return True
+
