@@ -10,6 +10,7 @@ Falta ajustar layout, criar funções e coloca-las para rodar conforme escolha e
 '''
 
 while True:
+    print()
     option = inquirer.select(
         message='=== MENU PRINCIPAL ===',
         choices=[
@@ -39,3 +40,24 @@ while True:
     }
     
     escolhas[option]()
+
+def menu_dinamico_func(*opcoes):
+    """
+    Exibe um menu interativo com InquirerPy a partir de uma lista de tuplas (nome, função).
+    
+    Exemplo de uso:
+        mostrar_menu_e_executar(
+            ('Cadastrar evento', cadastrar_evento),
+            ('Remover evento', remover_evento)
+        )
+    """
+    
+    choice_list = [{'name': name, 'value': func} for name, func in opcoes]
+
+    print()
+    escolha = inquirer.select(
+        message='O que deseja fazer agora?\n',
+        choices=choice_list
+    ).execute()
+    
+    escolha()
