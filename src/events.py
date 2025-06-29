@@ -104,3 +104,34 @@ def event_remove():
             print(f'\nEvento {evento_excluir} excluído com sucesso!')
     
     show_event_list()
+
+def show_events_by_theme():
+    '''
+    Exibe todos os eventos organizados pelo tema escolhido.
+    '''
+    
+    themes_list = sorted({
+        theme 
+        for event in events_list
+        for theme in event['tema_central']
+    })
+    
+    if not themes_list:
+        print('Nenhum tema disponível')
+        return
+    
+    tema_escolhido = inquirer.select(
+        message='Qual é o tema para consultar os eventos\n',
+        choices=themes_list
+    ).execute()
+    
+    event_name = [
+        event['nome'] 
+        for event in events_list
+        if tema_escolhido in event['tema_central']
+    ]
+    
+    print(f'\nEventos do tema {tema_escolhido}:\n')
+    for event in event_name:
+        print(f'- {event}')
+    print()
