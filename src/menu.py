@@ -1,5 +1,6 @@
 from InquirerPy import inquirer
 import events
+import participants
 
 '''
 Funcionalidade ainda em desenvolvimento.
@@ -14,7 +15,7 @@ while True:
         choices=[
             {'name': '1. Listar todos os eventos', 'value': 'listar'},
             {'name': '2. Ver participantes de um evento', 'value': 'ver_participantes'},
-            {'name': '3. Buscar participante por código', 'value': 'buscar_participante'},
+            {'name': '3. Buscar participante por CPF', 'value': 'buscar_participante'},
             {'name': '4. Estatísticas e relatórios', 'value': 'relatorios'},
             {'name': '5. Gerenciar eventos', 'value': 'gerenciar_eventos'},
             {'name': '6. Gerenciar participantes', 'value': 'gerenciar_participantes'},
@@ -23,14 +24,18 @@ while True:
         ]    
     ).execute()
     
+    if option == 'sair':
+        break
+    
     escolhas = {
-        'listar': events.show_event_list(),
-        'ver_participantes': events.show_participants_event(),
-        'buscar_participante': 'Função',
+        'listar': events.show_event_list,
+        'ver_participantes': events.show_participants_by_event,
+        'buscar_participante': participants.search_participant_for_cpf,
         'relatorios': 'Função',
         'gerenciar_eventos': 'Função',
         'gerenciar_participantes': 'Função',
-        'buscar_eventos': 'Função',
-        'sair': 'Função',
+        'buscar_eventos': events.show_events_by_theme,
+        'sair': 'sair',
     }
-    print(f'{escolhas[option]}')
+    
+    escolhas[option]()
