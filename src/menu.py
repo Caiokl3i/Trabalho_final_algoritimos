@@ -33,6 +33,26 @@ def menu_principal():
         
         option()
 
+def menu_gerenciar_eventos():
+    
+    choices = [
+            {'name': 'Mostrar participantes do evento', 'value': events.show_participants_by_event},
+            {'name': 'Cadastrar um novo evento', 'value': events.new_event_register},
+            {'name': 'Excluir evento', 'value': events.event_remove},
+            {'name': 'Mostrar eventos de um determinado tema', 'value': events.show_events_by_theme},
+            {'name': 'Voltar', 'value': False}
+        ]
+    
+    option = inquirer.select(
+        message='O que deseja fazer agora?\n',
+        choices=choices
+    ).execute()
+    
+    if not option:
+        return
+    
+    option()
+
 def menu_dinamico_func(*opcoes):
     """
     Exibe um menu interativo com InquirerPy a partir de uma lista de tuplas (nome, função).
@@ -53,3 +73,4 @@ def menu_dinamico_func(*opcoes):
     ).execute()
     
     escolha()
+

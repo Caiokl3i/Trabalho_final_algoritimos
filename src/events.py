@@ -24,9 +24,12 @@ def show_participants_by_event():
     e então mostra os participantes do evento escolhido.
     '''
     
-    show_event_list()
+    print('\nLista de eventos:\n')
+    for i, item in enumerate(events_list):
+        print('-' * 50)
+        print(f'{i + 1} - Evento: {item["nome"]}')
     
-    print('--> VERIFICAR PARTICIPANTES DO EVENTO <--\n')
+    print()
     
     if not events_list:
         print('! A lista está vazia !')
@@ -43,7 +46,7 @@ def show_participants_by_event():
         except ValueError:
             print('Entrada inválida! Digite apenas números inteiros\n')
 
-    print(f'\nOs participantes do evento {events_list[n - 1]["nome"]} são: \n')
+    print(f'\n- Os participantes do evento {events_list[n - 1]["nome"]} são: \n')
     
     for participant in events_list[n - 1]["participantes_event"]:
         print(f'Nome: {participant["nome"]}')
