@@ -2,44 +2,36 @@ from InquirerPy import inquirer
 import events
 import participants
 
-'''
-Funcionalidade ainda em desenvolvimento.
-Cria um menu interativo com InquirerPy.
-Cria um dicionário de escolhas para substituir um match-case ou um if-else
-Falta ajustar layout, criar funções e coloca-las para rodar conforme escolha e controlar loop infinito
-'''
+def menu_principal():
+    """
+    Exibe o menu principal do sistema e executa a funcionalidade selecionada.
 
-while True:
-    print()
-    option = inquirer.select(
-        message='=== MENU PRINCIPAL ===',
-        choices=[
-            {'name': '1. Listar todos os eventos', 'value': 'listar'},
-            {'name': '2. Ver participantes de um evento', 'value': 'ver_participantes'},
-            {'name': '3. Buscar participante por CPF', 'value': 'buscar_participante'},
-            {'name': '4. Estatísticas e relatórios', 'value': 'relatorios'},
-            {'name': '5. Gerenciar eventos', 'value': 'gerenciar_eventos'},
-            {'name': '6. Gerenciar participantes', 'value': 'gerenciar_participantes'},
-            {'name': '7. Buscar eventos por filtros', 'value': 'buscar_eventos'},
-            {'name': '8. Encerrar sistema', 'value': 'sair'},
-        ]    
-    ).execute()
+    Utiliza InquirerPy para interação com funções diretamente nos valores.
+    """
     
-    if option == 'sair':
-        break
-    
-    escolhas = {
-        'listar': events.show_event_list,
-        'ver_participantes': events.show_participants_by_event,
-        'buscar_participante': participants.search_participant_for_cpf,
-        'relatorios': 'Função',
-        'gerenciar_eventos': 'Função',
-        'gerenciar_participantes': 'Função',
-        'buscar_eventos': events.show_events_by_theme,
-        'sair': 'sair',
-    }
-    
-    escolhas[option]()
+    escolhas = [
+                {'name': '1. Listar todos os eventos', 'value': events.show_event_list},
+                {'name': '2. Ver participantes de um evento', 'value': events.show_participants_by_event},
+                {'name': '3. Buscar participante por CPF', 'value': participants.search_participant_for_cpf},
+                {'name': '4. Estatísticas e relatórios', 'value': lambda: print("[Função em construção]")},
+                {'name': '5. Gerenciar eventos', 'value': lambda: print("[Função em construção]")},
+                {'name': '6. Gerenciar participantes', 'value': lambda: print("[Função em construção]")},
+                {'name': '7. Buscar eventos por filtros', 'value': events.show_events_by_theme},
+                {'name': '8. Encerrar sistema', 'value': False},
+            ]
+
+    while True:
+        print()
+        option = inquirer.select(
+            message='----- MENU PRINCIPAL -----\n',
+            choices=escolhas
+        ).execute()
+        
+        if not option:
+            print('Saindo ...')
+            break
+        
+        option()
 
 def menu_dinamico_func(*opcoes):
     """
