@@ -92,10 +92,20 @@ def detect_duplicate_participants(cpf, event_name):
                     return False
     return True
 
-def show_events_by_participant(cpf):
+def show_events_by_participant():
     '''
     Mostra todos os eventos em que um participante está inscrito (com base no CPF).
     '''
+    
+    while True:
+        try:
+            cpf = int(input('\nDigite o CPF do aluno: '))
+            if len(str(cpf)) == 11:
+                break
+            else:
+                print('CPF Inválido!')
+        except ValueError:
+            print('Digite apenas números')
     
     events_name_by_partic = [
         (event['nome'], event['data'])
@@ -109,3 +119,4 @@ def show_events_by_participant(cpf):
     print(f'\n----- EVENTOS DO PARTICIPANTE -----\n')
     for name, data in events_name_by_partic:
         print(f'- {name}\n   Data: {data}\n')
+
