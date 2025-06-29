@@ -15,8 +15,6 @@ def show_event_list():
     for i, item in enumerate(events_list):
         print('-' * 50)
         print(f'{i + 1} - Evento: {item["nome"]}')
-        print(f'  Data: {item["data"]}')
-        print(f'  Tema: {item["tema_central"]}\n')
 
 def show_participants_by_event():
     '''
@@ -24,10 +22,7 @@ def show_participants_by_event():
     e então mostra os participantes do evento escolhido.
     '''
     
-    print('\nLista de eventos:\n')
-    for i, item in enumerate(events_list):
-        print('-' * 50)
-        print(f'{i + 1} - Evento: {item["nome"]}')
+    show_event_list()
     
     print()
     
@@ -84,8 +79,6 @@ def new_event_register():
     events_list.append(evento)
     
     print(f"Evento {nome} cadastrado com sucesso!!")
-    
-    show_event_list()
 
 def event_remove():
     '''
@@ -105,8 +98,6 @@ def event_remove():
         if evento['nome'] == evento_excluir:
             del events_list[i]
             print(f'\nEvento {evento_excluir} excluído com sucesso!')
-    
-    show_event_list()
 
 def show_events_by_theme():
     '''
