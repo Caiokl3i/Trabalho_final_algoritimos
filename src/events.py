@@ -8,7 +8,7 @@ def show_event_list():
     '''
     
     if not events_list:
-        print('! A lista está vazia !')
+        print('\nNão há eventos no momento!\n')
         return
     
     print('\nLista de eventos:\n')
@@ -27,7 +27,7 @@ def show_participants_by_event():
     print()
     
     if not events_list:
-        print('! A lista está vazia !')
+        print('\nNão há eventos no momento!\n')
         return
     
     while True:
@@ -87,8 +87,13 @@ def event_remove():
     Ajustar funcionalidade para facilitar o entendimento do usuário.
     '''
     
+    if not events_list:
+        print('\nNão há eventos no momento!\n')
+        return
+    
     choices = [evento['nome'] for evento in events_list]
     
+    print()
     evento_excluir = inquirer.select(
         message='Qual evento deseja excluir? \n',
         choices=choices
@@ -98,11 +103,16 @@ def event_remove():
         if evento['nome'] == evento_excluir:
             del events_list[i]
             print(f'\nEvento {evento_excluir} excluído com sucesso!')
+    print()
 
 def show_events_by_theme():
     '''
     Exibe todos os eventos organizados pelo tema escolhido.
     '''
+    
+    if not events_list:
+        print('\nNão há eventos no momento!\n')
+        return
     
     themes_list = sorted({
         theme 
@@ -114,6 +124,7 @@ def show_events_by_theme():
         print('Nenhum tema disponível')
         return
     
+    print()
     tema_escolhido = inquirer.select(
         message='Qual é o tema para consultar os eventos\n',
         choices=themes_list
@@ -125,7 +136,7 @@ def show_events_by_theme():
         if tema_escolhido in event['tema_central']
     ]
     
-    print(f'\nEventos do tema {tema_escolhido}:\n')
+    print(f'\nEventos sobre {tema_escolhido}:\n')
     for event in event_name:
         print(f'- {event}')
     print()
