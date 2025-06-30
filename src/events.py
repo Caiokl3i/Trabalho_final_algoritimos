@@ -1,5 +1,6 @@
 from InquirerPy import inquirer
 from event_data import events_list
+from collections import Counter
 
 def show_event_list():
     '''
@@ -140,3 +141,19 @@ def show_events_by_theme():
     for event in event_name:
         print(f'- {event}')
     print()
+
+def number_events_by_theme():
+    '''
+    Exibe a quantidade de eventos que cada tema possui
+    '''
+    
+    if not events_list:
+        print('\nNão há eventos no momento!\n')
+        return
+    
+    theme_counted = dict(Counter([theme for event in events_list for theme in event['tema_central']]))
+    
+    print()
+    print('----- QUANTIDADE DE EVENTOS POR TEMA -----\n')
+    for tema, qtde in theme_counted.items():
+        print(f'{tema} : {qtde} eventos')
