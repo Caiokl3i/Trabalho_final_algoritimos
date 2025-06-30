@@ -10,22 +10,20 @@ def menu_principal():
     """
     
     escolhas = [
-                {'name': '1. Listar todos os eventos', 'value': events.show_event_list},
-                {'name': '2. Ver participantes de um evento', 'value': events.show_participants_by_event},
-                {'name': '3. Buscar participante por CPF', 'value': participants.search_participant_for_cpf},
+                {'name': '5. Gerenciar eventos', 'value': menu_gerenciar_eventos},
+                {'name': '6. Gerenciar participantes', 'value': menu_gerenciar_participantes},
                 {'name': '4. Estatísticas e relatórios', 'value': lambda: print("[Função em construção]")},
-                {'name': '5. Gerenciar eventos', 'value': lambda: print("[Função em construção]")},
-                {'name': '6. Gerenciar participantes', 'value': lambda: print("[Função em construção]")},
-                {'name': '7. Buscar eventos por filtros', 'value': events.show_events_by_theme},
                 {'name': '8. Encerrar sistema', 'value': False},
             ]
 
     while True:
+        
         print()
         option = inquirer.select(
             message='----- MENU PRINCIPAL -----\n',
             choices=escolhas
         ).execute()
+        print()
         
         if not option:
             print('Saindo ...')
@@ -34,43 +32,65 @@ def menu_principal():
         option()
 
 def menu_gerenciar_eventos():
-    
-    choices = [
-            {'name': 'Mostrar participantes do evento', 'value': events.show_participants_by_event},
-            {'name': 'Cadastrar um novo evento', 'value': events.new_event_register},
-            {'name': 'Excluir evento', 'value': events.event_remove},
-            {'name': 'Mostrar eventos de um determinado tema', 'value': events.show_events_by_theme},
-            {'name': 'Voltar', 'value': False}
-        ]
-    
-    option = inquirer.select(
-        message='O que deseja fazer agora?\n',
-        choices=choices
-    ).execute()
-    
-    if not option:
-        return
-    
-    option()
+    while True:
+        choices = [
+                {'name': '1. Listar todos os eventos', 'value': events.show_event_list},
+                {'name': '2. Buscar eventos por tema', 'value': events.show_events_by_theme},
+                {'name': '3. Ver participantes de um evento específico', 'value': events.show_participants_by_event},
+                {'name': '4. Adicionar novo evento', 'value': events.new_event_register},
+                {'name': '5. Excluir evento', 'value': events.event_remove},
+                {'name': '6. Voltar', 'value': False}
+            ]
+        
+        print()
+        option = inquirer.select(
+            message='----- GERENCIAR EVENTOS -----\n',
+            choices=choices
+        ).execute()
+        print()
+        
+        if not option:
+            break
+        
+        option()
 
-def menu_dinamico_func(*opcoes):
-    """
-    Exibe um menu interativo com InquirerPy a partir de uma lista de tuplas (nome, função).
-    
-    Exemplo de uso:
-        mostrar_menu_e_executar(
-            ('Cadastrar evento', cadastrar_evento),
-            ('Remover evento', remover_evento)
-        )
-    """
-    
-    choice_list = [{'name': name, 'value': func} for name, func in opcoes]
+def menu_gerenciar_participantes():
+    while True:
+        choices = [
+                {'name': '1. Buscar participante por CPF', 'value': participants.search_participant_for_cpf},
+                {'name': '2. Consultar informações de um participante', 'value': participants.info_participant_for_cpf},
+                {'name': '3. Editar dados de um participante', 'value': participants.edit_participant_data},
+                {'name': '4. Voltar', 'value': False}
+            ]
+        
+        print()
+        option = inquirer.select(
+            message='----- GERENCIAR PARTICIPANTES -----\n',
+            choices=choices
+        ).execute()
+        print()
+        
+        if not option:
+            break
+        
+        option()
 
-    print()
-    escolha = inquirer.select(
-        message='O que deseja fazer agora?\n',
-        choices=choice_list
-    ).execute()
-    
-    escolha()
-
+def report_statistics():
+    while True:
+        choices = [
+                {'name': '1. Temas mais frequentes', 'value': lambda: print('Funcionalidade em construção')},
+                {'name': '2. Participantes mais ativos', 'value': lambda: print('Funcionalidade em construção')},
+                {'name': '3. Taxa média de participação por tema', 'value': lambda: print('Funcionalidade em construção')},
+                {'name': '4. Eventos com poucos inscritos', 'value': lambda: print('Funcionalidade em construção')},
+                {'name': '5. Voltar', 'value': False}
+            ]
+        
+        option = inquirer.select(
+            message='----- ESTATÍSTICAS E RELATÓRIOS -----\n',
+            choices=choices
+        ).execute()
+        
+        if not option:
+            break
+        
+        option()

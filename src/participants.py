@@ -2,11 +2,21 @@ from participant_data import participants_list
 from event_data import events_list
 from InquirerPy import inquirer
 
-def search_participant_for_cpf(cpf):
+def search_participant_for_cpf():
     '''
     Função auxiliar que busca o participante por cpf, assim fica mais fácil de
     manipular os dados, sem precisar fazer isso várias vezes
     '''
+    
+    while True:
+        try:
+            cpf = int(input('\nDigite o CPF do Aluno: '))
+            if len(str(cpf)) == 11:
+                break
+            else:
+                print('CPF Inválido!')
+        except ValueError:
+            print('Digite apenas números')
     
     if not participants_list:
         print('A lista de participantes está vazia')
@@ -22,19 +32,7 @@ def info_participant_for_cpf():
     - Exibe as informações do participante através da busca pelo CPF
     '''
     
-    print(f'\n----- BUSCAR USUÁRIO ATRAVÉS DO CPF -----\n')
-    
-    while True:
-        try:
-            cpf = int(input('\nDigite o CPF do Aluno: '))
-            if len(str(cpf)) == 11:
-                break
-            else:
-                print('CPF Inválido!')
-        except ValueError:
-            print('Digite apenas números')
-    
-    participant = search_participant_for_cpf(cpf)
+    participant = search_participant_for_cpf()
     
     print(f'\nInformações do participante: \n')
     print(f' CPF: {participant["cpf"]}')
@@ -75,6 +73,8 @@ def edit_participant_data():
     participant['nome'] = nome
     participant['email'] = email
     participant['preferencias_tematicas'] = [themes_preffer]
+    
+    print()
 
 def detect_duplicate_participants(cpf, event_name):
     '''
