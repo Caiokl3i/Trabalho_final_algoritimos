@@ -17,5 +17,19 @@ def themes_frequency_report():
         print(f'- {name:<30}: {qtd}x')
     print()
 
+def more_actives_partic():
+    '''
+    Exibe os 3 participantes mais ativos em participações nos eventos.
+    '''
+    
+    cpfs = Counter(
+        partic['cpf']
+        for event in events_list
+        for partic in event['participantes_event']
+    )
 
-
+    cpf_para_nome = {partic['cpf']: partic['nome'] for partic in participants_list}
+    
+    print('\nParticipantes mais ativos:\n')
+    for chave, valor in cpfs.most_common(3):
+            print(f'{cpf_para_nome[chave] :<20} . participou de {valor} eventos')

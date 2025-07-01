@@ -63,7 +63,6 @@ def menu_gerenciar_participantes():
                 {'name': '2. Consultar informações de um participante', 'value': participants.info_participant_for_cpf},
                 {'name': '3. Editar dados de um participante', 'value': participants.edit_participant_data},
                 {'name': '4. Mostrar eventos de um participante', 'value': participants.events_each_partic},
-                # listar todos os eventos em que um participante espec´ıfico est´a inscrito
                 {'name': '5. Voltar', 'value': False}
             ]
         
@@ -83,7 +82,7 @@ def report_statistics():
     while True:
         choices = [
                 {'name': '1. Temas mais frequentes', 'value': report.themes_frequency_report},
-                {'name': '2. Participantes mais ativos', 'value': lambda: print('Funcionalidade em construção')},
+                {'name': '2. Participantes mais ativos', 'value': report.more_actives_partic},
                 {'name': '3. Taxa média de participação por tema', 'value': lambda: print('Funcionalidade em construção')},
                 {'name': '4. Eventos com poucos inscritos', 'value': lambda: print('Funcionalidade em construção')},
                 # identificar eventos com menos de dois participantes (para poss´ıvel cancelamento)
