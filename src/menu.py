@@ -1,6 +1,7 @@
 from InquirerPy import inquirer
 import events
 import participants
+import report
 
 def menu_principal():
     """
@@ -81,7 +82,7 @@ def menu_gerenciar_participantes():
 def report_statistics():
     while True:
         choices = [
-                {'name': '1. Temas mais frequentes', 'value': lambda: print('Funcionalidade em construção')},
+                {'name': '1. Temas mais frequentes', 'value': report.themes_frequency_report},
                 {'name': '2. Participantes mais ativos', 'value': lambda: print('Funcionalidade em construção')},
                 {'name': '3. Taxa média de participação por tema', 'value': lambda: print('Funcionalidade em construção')},
                 {'name': '4. Eventos com poucos inscritos', 'value': lambda: print('Funcionalidade em construção')},

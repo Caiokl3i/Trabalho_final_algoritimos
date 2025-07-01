@@ -2,23 +2,20 @@ from collections import Counter
 from event_data import events_list
 from participant_data import participants_list
 
-def frequency_report():
+def themes_frequency_report():
     '''
-    - Funcionalidade ainda em desenvolvimento.
-    Counter - para contar quantos eventos tem.
-    dict - para tranformar o que o Counter retorna para um dicionario.
-    .item() - para retornar chave e valor para serem usados na parte visivel.
-    - Iniciando uso de list comprehension
+    Exibe os temas mais frequentes entre os eventos cadastrados.
+    A lista é ordenada do mais frequente para o menos frequente.
     '''
     
-    temas = [tema['tema_central'] for tema in events_list]
-
-    contagem = dict(Counter(temas))
-    print(contagem)
-
-    print('Quantidade de eventos por tema: \n')
-    for nome, qtde in contagem.items():
-        print(f'{nome} - {qtde} eventos')
+    themes_count = Counter([event['tema_central'] for event in events_list])
+    
+    themes_count = dict(themes_count.most_common())
+    
+    print('\nFrequência de temas:')
+    for name, qtd in themes_count.items():
+        print(f'- {name:<30}: {qtd}x')
+    print()
 
 def active_participants_report():
     '''
