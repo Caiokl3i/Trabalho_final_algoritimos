@@ -62,7 +62,7 @@ def menu_gerenciar_participantes():
                 {'name': '1. Buscar participante por CPF', 'value': participants.search_participant_for_cpf},
                 {'name': '2. Consultar informações de um participante', 'value': participants.info_participant_for_cpf},
                 {'name': '3. Editar dados de um participante', 'value': participants.edit_participant_data},
-                {'name': '4. Mostrar eventos de um participante', 'value': lambda: print('Em andamento')},
+                {'name': '4. Mostrar eventos de um participante', 'value': participants.events_each_partic},
                 # listar todos os eventos em que um participante espec´ıfico est´a inscrito
                 {'name': '5. Voltar', 'value': False}
             ]

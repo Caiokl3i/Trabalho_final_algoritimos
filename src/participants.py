@@ -1,6 +1,7 @@
 from participant_data import participants_list
 from event_data import events_list
 from InquirerPy import inquirer
+from collections import Counter
 
 def search_participant_for_cpf():
     '''
@@ -120,3 +121,23 @@ def show_events_by_participant():
     for name, data in events_name_by_partic:
         print(f'- {name}\n   Data: {data}\n')
 
+def events_each_partic():
+    '''
+    Exibe a quantidade de eventos em que cada participante esteve presente, 
+    ordenando do mais ativo para o menos ativo.
+    '''
+    
+    cpfs = []
+    for evento in events_list:
+        for participante in evento['participantes_event']:
+            cpfs.append(participante["cpf"])
+    
+    cpf_para_nome = {}
+    for participante in participants_list:
+        cpf_para_nome[participante['cpf']] = participante['nome']
+    
+    count = Counter(cpfs)
+    
+    print('Quantidade de evento de cada participante: \n')
+    for chave, valor in count.most_common():
+            print(f'{cpf_para_nome[chave]} - {valor} eventos')

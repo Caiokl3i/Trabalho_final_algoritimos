@@ -17,25 +17,5 @@ def themes_frequency_report():
         print(f'- {name:<30}: {qtd}x')
     print()
 
-def active_participants_report():
-    '''
-    - Funcionalidade ainda em desenvolvimento.
-    Adiciona CPFs em uma lista de cpfs
-    RElaciona o CPF com o nome
-    Counter conta quantas vezes o cpf repetiu
-    '''
-    
-    cpfs = []
-    for evento in events_list:
-        for participante in evento['participantes_event']:
-            cpfs.append(participante["cpf"])
-    
-    cpf_para_nome = {}
-    for participante in participants_list:
-        cpf_para_nome[participante['cpf']] = participante['nome']
-    
-    count = Counter(cpfs)
-    
-    print('Quantidade de evento de cada participante: \n')
-    for chave, valor in count.most_common():
-            print(f'{cpf_para_nome[chave]} - {valor} eventos')
+
+
