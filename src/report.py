@@ -12,7 +12,7 @@ def themes_frequency_report():
     
     themes_count = dict(themes_count.most_common())
     
-    print('\nFrequência de temas:')
+    print('\nFrequência de temas:\n')
     for name, qtd in themes_count.items():
         print(f'- {name:<30}. {qtd} evento(s) com esse tema')
     print()
