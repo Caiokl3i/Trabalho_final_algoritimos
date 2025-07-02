@@ -47,7 +47,6 @@ def edit_participant_data():
     '''
     Exibe os dados do participante atraves do CPF e permite editar os
     dados por um menu interativo.
-    ( Arrumar preferencias temáticas )
     '''
     
     participant = info_participant_for_cpf()
@@ -56,19 +55,31 @@ def edit_participant_data():
         print(f'Participante não encontrado!')
         return None
     
+    themes = set([event['tema_central'] for event in events_list])
+    
     print('\n----- INSIRA OS NOVOS DADOS DO PARTICIPANTE -----\n')
     
     nome = inquirer.text(
         message='NOME: ',
         validate=lambda result: len(result) > 0 or 'É obrigatório preencher esse campo!'
     ).execute()
-    email = inquirer.text(
-        message='EMAIL: ',
-        validate=lambda result: len(result) > 0 or 'É obrigatório preencher esse campo!'
-    ).execute()
-    themes_preffer = inquirer.text(
+    while True:
+        email = inquirer.text(
+            message='EMAIL: ',
+            validate=lambda result: len(result) > 0 or 'É obrigatório preencher esse campo!'
+        ).execute()
+        email = email.replace(" ", "")
+        
+        if email[0] == '@' or email[len(email)-1] == '@':
+            print('Digite um email válido')
+        elif not '@' in email:
+            print('Digite um email válido')
+        else:
+            break
+
+    themes_preffer = inquirer.select(
         message='PREFERÊNCIA TEMÁTICA: ',
-        validate=lambda result: len(result) > 0 or 'É obrigatório preencher esse campo!'
+        choices=themes
     ).execute()
 
     participant['nome'] = nome
