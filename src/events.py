@@ -118,7 +118,7 @@ def show_events_by_theme():
     themes_list = sorted({
         theme 
         for event in events_list
-        for theme in event['tema_central']
+        for theme in [event['tema_central']]
     })
     
     if not themes_list:
@@ -151,9 +151,11 @@ def number_events_by_theme():
         print('\nNão há eventos no momento!\n')
         return
     
-    theme_counted = dict(Counter([theme for event in events_list for theme in event['tema_central']]))
+    theme_counted = dict(Counter([event['tema_central'] for event in events_list]))
     
     print()
     print('----- QUANTIDADE DE EVENTOS POR TEMA -----\n')
     for tema, qtde in theme_counted.items():
         print(f'{tema} : {qtde} eventos')
+
+number_events_by_theme()
