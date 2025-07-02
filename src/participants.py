@@ -5,8 +5,7 @@ from collections import Counter
 
 def search_participant_for_cpf():
     '''
-    Função auxiliar que busca o participante por cpf, assim fica mais fácil de
-    manipular os dados, sem precisar fazer isso várias vezes
+    Função auxiliar que busca o participante por cpf
     '''
     
     while True:
@@ -164,22 +163,22 @@ def add_participant_in_event():
             if len(str(cpf)) == 11:
                 break
             else:
-                print('CPF Inválido!')
+                print('CPF Inválido!\n')
         except ValueError:
-            print('Digite apenas números')
+            print('Digite apenas números\n')
     
     if not participants_list:
-        print('A lista de participantes está vazia')
+        print('\nA lista de participantes está vazia\n')
         return None
     
     events = [event['nome'] for event in events_list]
     event_name = inquirer.select(
-        message='Escolha o evento para cadastrar o participante:\n',
+        message='\nEscolha o evento para cadastrar o participante:\n',
         choices=events
     ).execute()
     
     if not detect_duplicate_participants(cpf, event_name):
-        print('Esse aluno já está participando deste evento!\n')
+        print('\nEsse aluno já está participando deste evento!\n')
         return
     
     participant = next((partic for partic in participants_list if cpf == partic['cpf']))

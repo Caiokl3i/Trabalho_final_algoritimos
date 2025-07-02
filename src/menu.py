@@ -2,6 +2,7 @@ from InquirerPy import inquirer
 import events
 import participants
 import report
+import time
 
 def menu_principal():
     """
@@ -10,14 +11,15 @@ def menu_principal():
     Utiliza InquirerPy para interação com funções diretamente nos valores.
     """
     
-    escolhas = [
+    while True:
+        time.sleep(0.3)
+        
+        escolhas = [
                 {'name': '1. Gerenciar eventos', 'value': menu_gerenciar_eventos},
                 {'name': '2. Gerenciar participantes', 'value': menu_gerenciar_participantes},
-                {'name': '3. Estatísticas e relatórios', 'value': report_statistics_menu},
+                {'name': '3. Estatísticas e relatórios', 'value': menu_relatorios_estatisticas},
                 {'name': '4. Encerrar sistema', 'value': False},
             ]
-
-    while True:
         
         print()
         option = inquirer.select(
@@ -33,7 +35,13 @@ def menu_principal():
         option()
 
 def menu_gerenciar_eventos():
+    '''
+    Exibe o menu de gerenciamento das funcionalidades relacionadas aos eventos.
+    '''
+    
     while True:
+        time.sleep(0.3)
+        
         choices = [
                 {'name': '1. Listar todos os eventos', 'value': events.show_event_list},
                 {'name': '2. Buscar eventos por tema', 'value': events.show_events_by_theme},
@@ -57,7 +65,13 @@ def menu_gerenciar_eventos():
         option()
 
 def menu_gerenciar_participantes():
+    '''
+    Exibe o menu de gerenciamento das funcionalidades relacionadas aos participantes.
+    '''
+    
     while True:
+        time.sleep(0.3)
+        
         choices = [
                 {'name': '1. Inscrever participante em um evento', 'value': participants.add_participant_in_event},
                 {'name': '2. Buscar participante por CPF', 'value': participants.search_participant_for_cpf},
@@ -79,8 +93,14 @@ def menu_gerenciar_participantes():
         
         option()
 
-def report_statistics_menu():
+def menu_relatorios_estatisticas():
+    '''
+    Exibe o menu de funcionalidades relacionadas aos relatorios e estatisticas.
+    '''
+    
     while True:
+        time.sleep(0.3)
+        
         choices = [
                 {'name': '1. Temas mais frequentes', 'value': report.themes_frequency_report},
                 {'name': '2. Participantes mais ativos', 'value': report.more_actives_partic},

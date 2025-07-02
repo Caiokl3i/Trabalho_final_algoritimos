@@ -13,9 +13,9 @@ def show_event_list():
         print('\nNão há eventos no momento!\n')
         return
     
-    print('\nLista de eventos:\n')
+    print('\n------- LISTA DE EVENTOS -------\n')
     for i, item in enumerate(events_list):
-        print('-' * 50)
+        print()
         print(f'{i + 1} - Evento: {item["nome"]}')
 
 def show_participants_by_event():
@@ -43,7 +43,7 @@ def show_participants_by_event():
         except ValueError:
             print('Entrada inválida! Digite apenas números inteiros\n')
 
-    print(f'\n- Os participantes do evento {events_list[n - 1]["nome"]} são: \n')
+    print(f'\n- Os participantes do evento - {events_list[n - 1]["nome"].upper()} - são: \n')
     
     for participant in events_list[n - 1]["participantes_event"]:
         print(f'Nome: {participant["nome"]}')
@@ -51,11 +51,7 @@ def show_participants_by_event():
 
 def new_event_register():
     '''
-    - Funcionalidade em desenvolvimento
-    Implementação inicial do cadastro de um novo evento usando inquirer.
-    Procurar forma de vincular participantes ao evento.
-    Arrumar formatação da data.
-    mudar forma de escolher o tema central.
+    Cadastra um novo evento na lista de eventos.
     '''
     
     temas_eventos = [
@@ -113,13 +109,11 @@ def new_event_register():
     
     events_list.append(evento)
     
-    print(f"\nEvento {nome} cadastrado com sucesso!!\n")
+    print(f"\nEvento - {nome} - cadastrado com sucesso!!\n")
 
 def event_remove():
     '''
-    - Funcionalidade em desenvolvimento.
-    Implementação inicial da remoção de evento.
-    Ajustar funcionalidade para facilitar o entendimento do usuário.
+    Exclui o evento escolhido da lista de eventos
     '''
     
     if not events_list:
@@ -128,16 +122,16 @@ def event_remove():
     
     choices = [evento['nome'] for evento in events_list]
     
-    print()
+    
     evento_excluir = inquirer.select(
-        message='Qual evento deseja excluir? \n',
+        message='\nQual evento deseja excluir? \n',
         choices=choices
     ).execute()
     
     for i, evento in enumerate(events_list):
         if evento['nome'] == evento_excluir:
             del events_list[i]
-            print(f'\nEvento {evento_excluir} excluído com sucesso!')
+            print(f'\nEvento - {evento_excluir.upper()} - excluído com sucesso!\n')
     print()
 
 def show_events_by_theme():
@@ -171,7 +165,7 @@ def show_events_by_theme():
         if tema_escolhido in event['tema_central']
     ]
     
-    print(f'\nEventos sobre {tema_escolhido}:\n')
+    print(f'\nEventos sobre - {tema_escolhido} - :\n')
     for event in event_name:
         print(f'- {event}')
     print()
@@ -190,4 +184,4 @@ def number_events_by_theme():
     print()
     print('----- QUANTIDADE DE EVENTOS POR TEMA -----\n')
     for tema, qtde in theme_counted.items():
-        print(f'{tema} : {qtde} eventos')
+        print(f'{tema} : {qtde} evento(s)')
