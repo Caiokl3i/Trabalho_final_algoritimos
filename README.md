@@ -37,7 +37,6 @@ A navegação é feita por menu textual no terminal (linha de comando), facilita
 - Estruturas de dados (listas, dicionários, conjuntos)
 - Modularização e organização em múltiplos arquivos `.py`
 - Compreensão de listas
-- Uso de `*args` e `**kwargs`
 - Boas práticas com Git e versionamento semântico
 
 ## 📂 Estrutura do projeto
@@ -52,6 +51,7 @@ A navegação é feita por menu textual no terminal (linha de comando), facilita
 ├── menu.py                 # Interface textual no terminal
 └── participants.py         # Lógica relacionada aos participantes
 └── report.py               # Geração de estatísticas e relatórios 
+└── utils.py                # funções utilitárias auxiliares
 
 README.md                   # Documentação do projeto
 
