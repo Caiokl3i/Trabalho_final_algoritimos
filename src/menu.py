@@ -11,10 +11,10 @@ def menu_principal():
     """
     
     escolhas = [
-                {'name': '5. Gerenciar eventos', 'value': menu_gerenciar_eventos},
-                {'name': '6. Gerenciar participantes', 'value': menu_gerenciar_participantes},
-                {'name': '4. Estatísticas e relatórios', 'value': lambda: print("[Função em construção]")},
-                {'name': '8. Encerrar sistema', 'value': False},
+                {'name': '1. Gerenciar eventos', 'value': menu_gerenciar_eventos},
+                {'name': '2. Gerenciar participantes', 'value': menu_gerenciar_participantes},
+                {'name': '3. Estatísticas e relatórios', 'value': report_statistics_menu},
+                {'name': '4. Encerrar sistema', 'value': False},
             ]
 
     while True:
@@ -78,19 +78,19 @@ def menu_gerenciar_participantes():
         
         option()
 
-def report_statistics():
+def report_statistics_menu():
     while True:
         choices = [
                 {'name': '1. Temas mais frequentes', 'value': report.themes_frequency_report},
                 {'name': '2. Participantes mais ativos', 'value': report.more_actives_partic},
-                {'name': '3. Taxa média de participação por tema', 'value': lambda: print('Funcionalidade em construção')},
+                {'name': '3. Taxa média de participação por tema', 'value': report.average_theme},
                 {'name': '4. Eventos com poucos inscritos', 'value': lambda: print('Funcionalidade em construção')},
                 # identificar eventos com menos de dois participantes (para poss´ıvel cancelamento)
                 {'name': '5. Voltar', 'value': False}
             ]
         
         option = inquirer.select(
-            message='----- ESTATÍSTICAS E RELATÓRIOS -----\n',
+            message='\n----- ESTATÍSTICAS E RELATÓRIOS -----\n',
             choices=choices
         ).execute()
         
