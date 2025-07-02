@@ -7,7 +7,7 @@ Arquivo com os dados dos eventos em uma lista de dicionários
 events_list = [
     {
         'nome': 'Workshop de IA Generativa',
-        'data': '10-08-2025',
+        'data': '10/08/2025',
         'tema_central': 'Inteligência Artificial',
         'participantes_event': [
             participants_list[0], participants_list[3]
@@ -15,7 +15,7 @@ events_list = [
     },
     {
         'nome': 'Maratona Web Dev',
-        'data': '04-07-2025',
+        'data': '04/07/2025',
         'tema_central': 'Web',
         'participantes_event': [
             participants_list[0], participants_list[4]
@@ -23,7 +23,7 @@ events_list = [
     },
     {
         'nome': 'Palestra de Segurança Digital',
-        'data': '25-08-2025',
+        'data': '25/08/2025',
         'tema_central': 'Segurança da Informação',
         'participantes_event': [
             participants_list[1], participants_list[2]
@@ -31,7 +31,7 @@ events_list = [
     },
     {
         'nome': 'Encontro Cloud e DevOps',
-        'data': '03-09-2025',
+        'data': '03/09/2025',
         'tema_central': 'DevOps',
         'participantes_event': [
             participants_list[1], participants_list[2]
@@ -39,7 +39,7 @@ events_list = [
     },
     {
         'nome': 'Tech Talks: UX/UI Trends',
-        'data': '07-10-2025',
+        'data': '07/10/2025',
         'tema_central': 'DevOps',
         'participantes_event': [
             participants_list[4]
@@ -47,7 +47,7 @@ events_list = [
     },
     {
         'nome': 'Palestra sobre usos do Chatgpt',
-        'data': '08-06-2025',
+        'data': '08/06/2025',
         'tema_central': 'Inteligência Artificial',
         'participantes_event': [
             participants_list[4], participants_list[1]

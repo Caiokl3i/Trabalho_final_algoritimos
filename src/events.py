@@ -1,6 +1,7 @@
 from InquirerPy import inquirer
 from event_data import events_list
 from collections import Counter
+import utils
 
 def show_event_list():
     '''
@@ -57,18 +58,51 @@ def new_event_register():
     mudar forma de escolher o tema central.
     '''
     
+    temas_eventos = [
+    "Inteligência Artificial",
+    "Desenvolvimento Web",
+    "Segurança da Informação",
+    "DevOps",
+    "Experiência do Usuário (UX/UI)",
+    "Desenvolvimento Mobile",
+    "Banco de Dados",
+    "Ciência de Dados",
+    "Computação em Nuvem",
+    "Internet das Coisas (IoT)",
+    "Robótica",
+    "Desenvolvimento de Jogos",
+    "Programação para Iniciantes",
+    "Empreendedorismo Digital",
+    "Inclusão Digital",
+    "Ética e Tecnologia",
+    "Carreira e Mercado Tech",
+    "Tecnologias Emergentes",
+    "Automação e RPA",
+    "Comunicação e Soft Skills no Mundo Tech"
+    ]
+    
     print(f'\n===== CADASTRO DE UM NOVO EVENTO =====\n')
     nome = inquirer.text(
         message='NOME: ',
         validate=lambda result: len(result) > 0 or "É obrigatorio preencher esse campo"
     ).execute()
-    data = inquirer.text(
-        message='DATA: '
-    ).execute()
-    tema_central = inquirer.text(
-        message='TEMA: '
-    ).execute()
+    print()
     
+    while True:
+        data = inquirer.text(
+            message='DATA DD/MM/AAAA: '
+        ).execute()
+        
+        if not utils.validar_data(data):
+            print('Formato inválido! (Ex. 12/03/2025)')
+        else:
+            break
+    print()
+    
+    tema_central = inquirer.select(
+        message='TEMA: ',
+        choices=temas_eventos
+    ).execute()
     print()
     
     evento = {
@@ -79,7 +113,7 @@ def new_event_register():
     
     events_list.append(evento)
     
-    print(f"Evento {nome} cadastrado com sucesso!!")
+    print(f"\nEvento {nome} cadastrado com sucesso!!\n")
 
 def event_remove():
     '''
@@ -157,5 +191,3 @@ def number_events_by_theme():
     print('----- QUANTIDADE DE EVENTOS POR TEMA -----\n')
     for tema, qtde in theme_counted.items():
         print(f'{tema} : {qtde} eventos')
-
-number_events_by_theme()
