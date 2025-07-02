@@ -59,11 +59,12 @@ def menu_gerenciar_eventos():
 def menu_gerenciar_participantes():
     while True:
         choices = [
-                {'name': '1. Buscar participante por CPF', 'value': participants.search_participant_for_cpf},
-                {'name': '2. Consultar informações de um participante', 'value': participants.info_participant_for_cpf},
-                {'name': '3. Editar dados de um participante', 'value': participants.edit_participant_data},
-                {'name': '4. Mostrar eventos de um participante', 'value': participants.events_each_partic},
-                {'name': '5. Voltar', 'value': False}
+                {'name': '1. Inscrever participante em um evento', 'value': participants.add_participant_in_event},
+                {'name': '2. Buscar participante por CPF', 'value': participants.search_participant_for_cpf},
+                {'name': '3. Consultar informações de um participante', 'value': participants.info_participant_for_cpf},
+                {'name': '4. Editar dados de um participante', 'value': participants.edit_participant_data},
+                {'name': '5. Mostrar eventos de um participante', 'value': participants.events_each_partic},
+                {'name': '6. Voltar', 'value': False}
             ]
         
         print()

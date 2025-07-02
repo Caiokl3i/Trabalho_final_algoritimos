@@ -152,3 +152,38 @@ def events_each_partic():
     print('Quantidade de evento de cada participante: \n')
     for chave, valor in count.most_common():
             print(f'{cpf_para_nome[chave]} - {valor} eventos')
+
+def add_participant_in_event():
+    '''
+    Inscreve o aluno selecionado pelo CPF no evento escolhido
+    '''
+    
+    while True:
+        try:
+            cpf = int(input('\nDigite o CPF do Aluno: \n'))
+            if len(str(cpf)) == 11:
+                break
+            else:
+                print('CPF Inválido!')
+        except ValueError:
+            print('Digite apenas números')
+    
+    if not participants_list:
+        print('A lista de participantes está vazia')
+        return None
+    
+    events = [event['nome'] for event in events_list]
+    event_name = inquirer.select(
+        message='Escolha o evento para cadastrar o participante:\n',
+        choices=events
+    ).execute()
+    
+    if not detect_duplicate_participants(cpf, event_name):
+        print('Esse aluno já está participando deste evento!\n')
+        return
+    
+    participant = next((partic for partic in participants_list if cpf == partic['cpf']))
+    
+    for event in events_list:
+        if event['nome'] == event_name:
+            event['participantes_event'].append(participant)
