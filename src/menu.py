@@ -84,8 +84,7 @@ def report_statistics_menu():
                 {'name': '1. Temas mais frequentes', 'value': report.themes_frequency_report},
                 {'name': '2. Participantes mais ativos', 'value': report.more_actives_partic},
                 {'name': '3. Taxa média de participação por tema', 'value': report.average_theme},
-                {'name': '4. Eventos com poucos inscritos', 'value': lambda: print('Funcionalidade em construção')},
-                # identificar eventos com menos de dois participantes (para poss´ıvel cancelamento)
+                {'name': '4. Eventos com poucos inscritos', 'value': report.less_than_2_partic},
                 {'name': '5. Voltar', 'value': False}
             ]
         

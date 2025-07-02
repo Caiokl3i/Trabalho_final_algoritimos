@@ -61,3 +61,19 @@ def average_theme():
     print('\n---- MÉDIA DE PARTICIPAÇÃO POR TEMA ----\n')
     for nome, taxa in media_dict.items():
         print(f'{nome:<30} . {taxa}')
+
+def less_than_2_partic():
+    '''
+    Exibe os eventos com menos de dois participantes (para posssível cancelamento)
+    '''
+    
+    events_qtde = {}
+    for event in events_list:
+        events_qtde[event['nome']]= len(event['participantes_event'])
+    
+    print(f'\n---- EVENTOS COM MENOS DE 3 PARTICIPANTES ----')
+    print('- Possível cancelamento desses eventos futuramente -\n')
+    for chave, valor in events_qtde.items():
+        if valor < 3:
+            print(f'Evento: {chave :<35} . {valor} participante(s)')
+    print()
