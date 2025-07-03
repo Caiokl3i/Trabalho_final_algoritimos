@@ -76,3 +76,5 @@ pip install InquirerPy
 ## 🧠 Aprendizados e Propósito
 
 Este projeto foi desenvolvido como parte do curso de Análise e Desenvolvimento de Sistemas, com foco em consolidar os conhecimentos sobre estruturas de dados, modularização, manipulação de arquivos, e boas práticas de programação em Python.
+
+🎉
