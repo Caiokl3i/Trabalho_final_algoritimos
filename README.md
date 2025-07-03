@@ -63,6 +63,16 @@ README.md                   # Documentação do projeto
 
 3 - Execute o arquivo main.py com Python 3:
 
+## 📦 Dependências
+
+- Este projeto utiliza a biblioteca InquirerPy para criar menus interativos no terminal, deixando a navegação mais amigável.
+
+Para instalar as dependências, no repositório do projeto, rode:
+
+```bash
+pip install InquirerPy
+```
+
 ## 🧠 Aprendizados e Propósito
 
 Este projeto foi desenvolvido como parte do curso de Análise e Desenvolvimento de Sistemas, com foco em consolidar os conhecimentos sobre estruturas de dados, modularização, manipulação de arquivos, e boas práticas de programação em Python.
