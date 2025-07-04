@@ -7,7 +7,7 @@ def search_participant_for_cpf():
     '''
     Função auxiliar que busca o participante por cpf
     '''
-    
+    # arrumar como recebe o cpf
     while True:
         try:
             cpf = int(input('\nDigite o CPF do Aluno: '))
@@ -19,28 +19,31 @@ def search_participant_for_cpf():
             print('Digite apenas números')
     
     if not participants_list:
-        print('A lista de participantes está vazia')
-        return None
+            print('A lista de participantes está vazia')
+            return None
     
     for participant in participants_list:
         if cpf == participant["cpf"]:
             return participant
+        
     return None
 
-def info_participant_for_cpf():
+def display_info_participant_for_cpf():
     '''
     - Exibe as informações do participante através da busca pelo CPF
     '''
     
     participant = search_participant_for_cpf()
     
+    if participant is None:
+        print(f'O participante não existe!')
+        return
+    
     print(f'\nInformações do participante: \n')
     print(f' CPF: {participant["cpf"]}')
     print(f' Nome: {participant["nome"]}')
     print(f' Email: {participant["email"]}')
     print(f' Preferências Temáticas: {participant["preferencias_tematicas"]}\n')
-    
-    return participant
 
 def edit_participant_data():
     '''
@@ -48,20 +51,19 @@ def edit_participant_data():
     dados por um menu interativo.
     '''
     
-    participant = info_participant_for_cpf()
+    participant = search_participant_for_cpf()
     
     if not participant:
         print(f'Participante não encontrado!')
         return None
     
-    themes = set([event['tema_central'] for event in events_list])
-    
     print('\n----- INSIRA OS NOVOS DADOS DO PARTICIPANTE -----\n')
     
-    nome = inquirer.text(
+    name = inquirer.text(
         message='NOME: ',
         validate=lambda result: len(result) > 0 or 'É obrigatório preencher esse campo!'
     ).execute()
+    
     while True:
         email = inquirer.text(
             message='EMAIL: ',
@@ -75,15 +77,18 @@ def edit_participant_data():
             print('Digite um email válido')
         else:
             break
-
-    themes_preffer = inquirer.select(
+    
+    themes = set([event['tema_central'] for event in events_list])
+    
+    thematic_preferences = inquirer.select(
         message='PREFERÊNCIA TEMÁTICA: ',
         choices=themes
     ).execute()
-
-    participant['nome'] = nome
+    
+    # arrumar
+    participant['nome'] = name
     participant['email'] = email
-    participant['preferencias_tematicas'] = [themes_preffer]
+    participant['preferencias_tematicas'] = [thematic_preferences]
     
     print()
 
@@ -96,16 +101,16 @@ def detect_duplicate_participants(cpf, event_name):
         False – se o participante já estiver inscrito (duplicata)
     '''
 
-    for evento in events_list:
-        if evento['nome'] == event_name:
-            for participante in evento['participantes_event']:
-                if cpf == participante['cpf']:
+    for event in events_list:
+        if event['nome'] == event_name:
+            for participant in event['participantes_event']:
+                if cpf == participant['cpf']:
                     return False
     return True
 
-def show_events_by_participant():
+def display_events_by_participant():
     '''
-    Mostra todos os eventos em que um participante está inscrito (com base no CPF).
+    Exibe todos os eventos em que um participante está inscrito (com base no CPF).
     '''
     
     while True:
@@ -136,21 +141,21 @@ def events_each_partic():
     Exibe a quantidade de eventos em que cada participante esteve presente, 
     ordenando do mais ativo para o menos ativo.
     '''
-    
+    # tranformar em list comprehension
     cpfs = []
-    for evento in events_list:
-        for participante in evento['participantes_event']:
-            cpfs.append(participante["cpf"])
+    for event in events_list:
+        for participant in event['participantes_event']:
+            cpfs.append(participant["cpf"])
     
-    cpf_para_nome = {}
-    for participante in participants_list:
-        cpf_para_nome[participante['cpf']] = participante['nome']
+    cpf_to_name = {}
+    for participant in participants_list:
+        cpf_to_name[participant['cpf']] = participant['nome']
     
-    count = Counter(cpfs)
+    cpf_counted = Counter(cpfs)
     
     print('Quantidade de evento de cada participante: \n')
-    for chave, valor in count.most_common():
-            print(f'{cpf_para_nome[chave]} - {valor} eventos')
+    for key, value in cpf_counted.most_common():
+            print(f'{cpf_to_name[key]} - {value} eventos')
 
 def add_participant_in_event():
     '''
@@ -187,7 +192,7 @@ def add_participant_in_event():
         if event['nome'] == event_name:
             event['participantes_event'].append(participant)
 
-def register_new_partic():
+def register_new_participant():
     '''
     Cadastra um novo participante no "banco de dados" de participantes
     '''
@@ -204,28 +209,29 @@ def register_new_partic():
             print('\n - CPF inválido! Deve ter 11 digitos\n')
             continue
         
-        cpf_existente = any([partic['cpf'] == cpf for partic in participants_list])
-        if cpf_existente:
+        ixisting_cpf = any([partic['cpf'] == cpf for partic in participants_list])
+        if ixisting_cpf:
             print('\n - O CPF já está cadastrado')
             continue
         
         break
     while True:
-        nome = inquirer.text(
+        name = inquirer.text(
             message='\nNome do participante:'
         ).execute()
         
-        nome = nome.strip()
+        name = name.strip()
         
-        if any(letter.isdigit() for letter in nome):
+        if any(letter.isdigit() for letter in name):
             print('\nO nome não pode conter números\n')
             continue
-        if not nome:
+        if not name:
             print('O nome não pode ser vazio')
             continue
         break
     
     while True:
+        #tem forma melhor
         email = inquirer.text(
                 message='\nEmail do participante:'
             ).execute()
@@ -242,7 +248,7 @@ def register_new_partic():
         
         break
     
-    temas_eventos = [
+    event_themes = [
     "Inteligência Artificial",
     "Desenvolvimento Web",
     "Segurança da Informação",
@@ -265,32 +271,32 @@ def register_new_partic():
     "Comunicação e Soft Skills no Mundo Tech"
     ]
     while True:
-        tema_escolhido = inquirer.select(
+        chosen_theme = inquirer.select(
             message='\nPreferêcia temática:\n',
-            choices=temas_eventos
+            choices=event_themes
         ).execute()
         
-        themes_preffer = []
-        if not tema_escolhido in themes_preffer:
-            themes_preffer.append(tema_escolhido)
+        tematics_preferences = []
+        if not chosen_theme in tematics_preferences:
+            tematics_preferences.append(chosen_theme)
         
-        resposta = inquirer.select(
-            message='\nQuer escolher mais um evento?',
+        option = inquirer.select(
+            message='\nQuer escolher mais um tema?',
             choices=['Sim', 'Não']
         ).execute()
         
-        if resposta == 'Sim':
+        if option == 'Sim':
             continue
-        elif resposta == 'Não':
+        elif option == 'Não':
             break
     
     participants_list.append(
         {
         'cpf': cpf,
-        'nome': nome,
+        'nome': name,
         'email': email,
-        'preferencias_tematicas': themes_preffer
+        'preferencias_tematicas': tematics_preferences
         }
     )
     
-    print(f'Participante {nome} cadastrado Cc')
+    print(f'Participante {name} cadastrado com sucesso')

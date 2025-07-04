@@ -8,13 +8,13 @@ def themes_frequency_report():
     A lista é ordenada do mais frequente para o menos frequente.
     '''
     
-    themes_count = Counter([event['tema_central'] for event in events_list])
+    counted_themes = Counter([event['tema_central'] for event in events_list])
     
-    themes_count = dict(themes_count.most_common())
+    counted_themes = dict(counted_themes.most_common())
     
     print('\nFrequência de temas:\n')
-    for name, qtd in themes_count.items():
-        print(f'- {name:<30}. {qtd} evento(s) com esse tema')
+    for name, quantity in counted_themes.items():
+        print(f'- {name:<30}. {quantity} evento(s) com esse tema')
     print()
 
 def more_actives_partic():
@@ -28,11 +28,11 @@ def more_actives_partic():
         for partic in event['participantes_event']
     )
 
-    cpf_para_nome = {partic['cpf']: partic['nome'] for partic in participants_list}
+    cpf_to_nome = {partic['cpf']: partic['nome'] for partic in participants_list}
     
     print('\nParticipantes mais ativos:\n')
-    for chave, valor in cpfs.most_common(3):
-            print(f'{cpf_para_nome[chave] :<20} . participou de {valor} eventos')
+    for key, value in cpfs.most_common(3):
+            print(f'{cpf_to_nome[key] :<20} . participou de {value} eventos')
 
 def average_theme():
     '''
@@ -40,40 +40,40 @@ def average_theme():
     '''
     
     # quantidade de eventos por tema
-    themes_count = dict(Counter([events['tema_central'] for events in events_list]))
+    counted_themes = dict(Counter([event['tema_central'] for event in events_list]))
     
     # total de participantes no evento
-    soma_partic = {}
-    for theme_name in themes_count.keys():
+    partic_sum = {}
+    for theme_name in counted_themes.keys():
         for event in events_list:
             if event['tema_central'] == theme_name:
-                if theme_name in soma_partic:
-                    soma_partic[theme_name] += len(event['participantes_event'])
+                if theme_name in partic_sum:
+                    partic_sum[theme_name] += len(event['participantes_event'])
                 else:
-                    soma_partic[theme_name]= len(event['participantes_event'])
+                    partic_sum[theme_name]= len(event['participantes_event'])
     
     # faz a media de participação por tema
-    media_dict = {}
-    for nome, soma in soma_partic.items():
-        taxa_media = soma / themes_count[nome]
-        media_dict[nome]=taxa_media
+    dict_average = {}
+    for name, sum in partic_sum.items():
+        average_rate = sum / counted_themes[name]
+        dict_average[name]=average_rate
     
     print('\n---- MÉDIA DE PARTICIPAÇÃO POR TEMA ----\n')
-    for nome, taxa in media_dict.items():
-        print(f'{nome:<30} . {taxa}')
+    for name, rate in dict_average.items():
+        print(f'{name:<30} . {rate}')
 
 def less_than_2_partic():
     '''
     Exibe os eventos com menos de dois participantes (para posssível cancelamento)
     '''
     
-    events_qtde = {}
+    events_quantity = {}
     for event in events_list:
-        events_qtde[event['nome']]= len(event['participantes_event'])
+        events_quantity[event['nome']]= len(event['participantes_event'])
     
     print(f'\n---- EVENTOS COM MENOS DE 3 PARTICIPANTES ----')
     print('- Possível cancelamento desses eventos futuramente -\n')
-    for chave, valor in events_qtde.items():
-        if valor < 3:
-            print(f'Evento: {chave :<35} . {valor} participante(s)')
+    for key, value in events_quantity.items():
+        if value < 3:
+            print(f'Evento: {key :<35} . {value} participante(s)')
     print()

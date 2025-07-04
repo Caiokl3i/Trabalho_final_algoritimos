@@ -4,7 +4,7 @@ import participants
 import report
 import time
 
-def menu_principal():
+def main_menu():
     """
     Exibe o menu principal do sistema e executa a funcionalidade selecionada.
 
@@ -14,9 +14,9 @@ def menu_principal():
     while True:
         time.sleep(0.3)
         
-        escolhas = [
-                {'name': '1. Gerenciar eventos', 'value': menu_gerenciar_eventos},
-                {'name': '2. Gerenciar participantes', 'value': menu_gerenciar_participantes},
+        choices = [
+                {'name': '1. Gerenciar eventos', 'value': manage_events_menu},
+                {'name': '2. Gerenciar participantes', 'value': manage_participants_menu},
                 {'name': '3. Estatísticas e relatórios', 'value': menu_relatorios_estatisticas},
                 {'name': '4. Encerrar sistema', 'value': False},
             ]
@@ -24,7 +24,7 @@ def menu_principal():
         print()
         option = inquirer.select(
             message='----- MENU PRINCIPAL -----\n',
-            choices=escolhas
+            choices=choices
         ).execute()
         print()
         
@@ -34,7 +34,7 @@ def menu_principal():
         
         option()
 
-def menu_gerenciar_eventos():
+def manage_events_menu():
     '''
     Exibe o menu de gerenciamento das funcionalidades relacionadas aos eventos.
     '''
@@ -43,7 +43,7 @@ def menu_gerenciar_eventos():
         time.sleep(0.3)
         
         choices = [
-                {'name': '1. Listar todos os eventos', 'value': events.show_event_list},
+                {'name': '1. Listar todos os eventos', 'value': events.display_event_list},
                 {'name': '2. Buscar eventos por tema', 'value': events.show_events_by_theme},
                 {'name': '3. Ver quantidade de eventos por tema', 'value': events.number_events_by_theme},
                 {'name': '4. Ver participantes de um evento específico', 'value': events.show_participants_by_event},
@@ -64,7 +64,7 @@ def menu_gerenciar_eventos():
         
         option()
 
-def menu_gerenciar_participantes():
+def manage_participants_menu():
     '''
     Exibe o menu de gerenciamento das funcionalidades relacionadas aos participantes.
     '''
@@ -74,11 +74,14 @@ def menu_gerenciar_participantes():
         
         choices = [
                 {'name': '1. Cadastrar um novo participante', 'value': participants.register_new_partic},
+                {'name': '1. Cadastrar um novo participante', 'value': participants.register_new_partic},
                 {'name': '1. Inscrever participante em um evento', 'value': participants.add_participant_in_event},
-                {'name': '2. Buscar participante por CPF', 'value': participants.search_participant_for_cpf},
+                {'name': '2. Buscar participante por CPF', 'value': participants.info_participant_for_cpf},
                 {'name': '3. Consultar informações de um participante', 'value': participants.info_participant_for_cpf},
                 {'name': '4. Editar dados de um participante', 'value': participants.edit_participant_data},
-                {'name': '5. Mostrar eventos de um participante', 'value': participants.events_each_partic},
+                {'name': '5. Mostrar eventos de cada participante', 'value': participants.events_each_partic},
+                {'name': '5. Mostrar eventos de um participante específico', 'value': participants.show_events_by_participant},
+                {'name': '5. Remover um particpante', 'value': participants.participant_delete},
                 {'name': '6. Voltar', 'value': False}
             ]
         

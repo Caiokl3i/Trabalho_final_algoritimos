@@ -1,51 +1,51 @@
 from InquirerPy import inquirer
-from event_data import events_list
+from event_data import event_list
 from collections import Counter
 import utils
 
-def show_event_list():
+def display_event_list():
     '''
     Exibe todos os eventos cadastrados com nome, data e tema central.
     - Se a lista de eventos estiver vazia, exibe uma mensagem de aviso e encerra a função.
     '''
     
-    if not events_list:
+    if not event_list:
         print('\nNão há eventos no momento!\n')
         return
     
     print('\n------- LISTA DE EVENTOS -------\n')
-    for i, item in enumerate(events_list):
+    for i, event in enumerate(event_list):
         print()
-        print(f'{i + 1} - Evento: {item["nome"]}')
+        print(f'{i + 1} - Evento: {event["nome"]}')
 
-def show_participants_by_event():
+def display_particpants_by_event():
     '''
     Exibe a lista de eventos para que o usuário escolha um,
     e então mostra os participantes do evento escolhido.
     '''
     
-    show_event_list()
+    display_event_list()
     
     print()
     
-    if not events_list:
+    if not event_list:
         print('\nNão há eventos no momento!\n')
         return
     
     while True:
         try:
-            n = int(input(f'Digite o número do evento para ver os participantes (1 a {len(events_list)}) \n'))
-            if 1 <= n <= len(events_list):
+            n = int(input(f'Digite o número do evento para ver os participantes (1 a {len(event_list)}) \n'))
+            if 1 <= n <= len(event_list):
                 break
             else:
-                print(f'Digite um número de 1 a {len(events_list)} \n')
+                print(f'Digite um número de 1 a {len(event_list)} \n')
                 
         except ValueError:
             print('Entrada inválida! Digite apenas números inteiros\n')
 
-    print(f'\n- Os participantes do evento - {events_list[n - 1]["nome"].upper()} - são: \n')
+    print(f'\n- Os participantes do evento - {event_list[n - 1]["nome"].upper()} - são: \n')
     
-    for participant in events_list[n - 1]["participantes_event"]:
+    for participant in event_list[n - 1]["participantes_event"]:
         print(f'Nome: {participant["nome"]}')
         print(f'Email: {participant["email"]} \n')
 
@@ -54,7 +54,7 @@ def new_event_register():
     Cadastra um novo evento na lista de eventos.
     '''
     
-    temas_eventos = [
+    event_themes= [
     "Inteligência Artificial",
     "Desenvolvimento Web",
     "Segurança da Informação",
@@ -78,40 +78,40 @@ def new_event_register():
     ]
     
     print(f'\n===== CADASTRO DE UM NOVO EVENTO =====\n')
-    nome = inquirer.text(
+    name = inquirer.text(
         message='NOME: ',
         validate=lambda result: len(result) > 0 or "É obrigatorio preencher esse campo"
     ).execute()
     print()
     
     while True:
-        data = inquirer.text(
+        date = inquirer.text(
             message='DATA DD/MM/AAAA: '
         ).execute()
         
-        if not utils.validar_data(data):
+        if not utils.validar_data(date):
             print('Formato inválido! (Ex. 12/03/2025)')
         else:
             break
     print()
     
-    tema_central = inquirer.select(
+    central_theme = inquirer.select(
         message='TEMA: ',
-        choices=temas_eventos
+        choices=event_themes
     ).execute()
     print()
     
-    evento = {
-        'nome': nome,
-        'data': data,
-        'tema_central': tema_central
+    event = {
+        'nome': name,
+        'data': date,
+        'tema_central': central_theme
     }
     
-    events_list.append(evento)
+    event_list.append(event)
     
-    print(f"\nEvento - {nome} - cadastrado com sucesso!!\n")
+    print(f"\nEvento - {name} - cadastrado com sucesso!!\n")
 
-def event_remove():
+def delete_event():
     '''
     Exclui o evento escolhido da lista de eventos
     '''
@@ -134,38 +134,38 @@ def event_remove():
             print(f'\nEvento - {evento_excluir.upper()} - excluído com sucesso!\n')
     print()
 
-def show_events_by_theme():
+def display_events_by_theme():
     '''
     Exibe todos os eventos organizados pelo tema escolhido.
     '''
     
-    if not events_list:
+    if not event_list:
         print('\nNão há eventos no momento!\n')
         return
     
     themes_list = sorted({
-        theme 
-        for event in events_list
+        theme
+        for event in event_list
         for theme in [event['tema_central']]
     })
     
     if not themes_list:
-        print('Nenhum tema disponível')
+        print('\nNenhum tema disponível\n')
         return
     
     print()
-    tema_escolhido = inquirer.select(
+    chosen_theme = inquirer.select(
         message='Qual é o tema para consultar os eventos\n',
         choices=themes_list
     ).execute()
     
     event_name = [
         event['nome'] 
-        for event in events_list
-        if tema_escolhido in event['tema_central']
+        for event in event_list
+        if chosen_theme in event['tema_central']
     ]
     
-    print(f'\nEventos sobre - {tema_escolhido} - :\n')
+    print(f'\nEventos sobre - {chosen_theme} - :\n')
     for event in event_name:
         print(f'- {event}')
     print()
@@ -175,13 +175,13 @@ def number_events_by_theme():
     Exibe a quantidade de eventos que cada tema possui
     '''
     
-    if not events_list:
+    if not event_list:
         print('\nNão há eventos no momento!\n')
         return
     
-    theme_counted = dict(Counter([event['tema_central'] for event in events_list]))
+    counted_themes = dict(Counter([event['tema_central'] for event in event_list]))
     
     print()
     print('----- QUANTIDADE DE EVENTOS POR TEMA -----\n')
-    for tema, qtde in theme_counted.items():
-        print(f'{tema} : {qtde} evento(s)')
+    for theme, quantity in counted_themes.items():
+        print(f'{theme} : {quantity} evento(s)')
