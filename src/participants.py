@@ -186,3 +186,111 @@ def add_participant_in_event():
     for event in events_list:
         if event['nome'] == event_name:
             event['participantes_event'].append(participant)
+
+def register_new_partic():
+    '''
+    Cadastra um novo participante no "banco de dados" de participantes
+    '''
+    
+    while True:
+        cpf = inquirer.text(
+            message='CPF do novo participante (apenas números): '
+        ).execute()
+        
+        if not cpf.isdigit():
+            print('\n - CPF inválido! Digite apenas números\n')
+            continue
+        elif len(cpf) != 11:
+            print('\n - CPF inválido! Deve ter 11 digitos\n')
+            continue
+        
+        cpf_existente = any([partic['cpf'] == cpf for partic in participants_list])
+        if cpf_existente:
+            print('\n - O CPF já está cadastrado')
+            continue
+        
+        break
+    while True:
+        nome = inquirer.text(
+            message='\nNome do participante:'
+        ).execute()
+        
+        nome = nome.strip()
+        
+        if any(letter.isdigit() for letter in nome):
+            print('\nO nome não pode conter números\n')
+            continue
+        if not nome:
+            print('O nome não pode ser vazio')
+            continue
+        break
+    
+    while True:
+        email = inquirer.text(
+                message='\nEmail do participante:'
+            ).execute()
+            
+        if any(caracters == ' ' for caracters in email):
+            print('Email inválido')
+            continue
+        
+        if not '@' in email:
+            print('\nEmail inválido!')
+        elif not '.' in email:
+            print('\nEmail inválido!')
+            continue
+        
+        break
+    
+    temas_eventos = [
+    "Inteligência Artificial",
+    "Desenvolvimento Web",
+    "Segurança da Informação",
+    "DevOps",
+    "Experiência do Usuário (UX/UI)",
+    "Desenvolvimento Mobile",
+    "Banco de Dados",
+    "Ciência de Dados",
+    "Computação em Nuvem",
+    "Internet das Coisas (IoT)",
+    "Robótica",
+    "Desenvolvimento de Jogos",
+    "Programação para Iniciantes",
+    "Empreendedorismo Digital",
+    "Inclusão Digital",
+    "Ética e Tecnologia",
+    "Carreira e Mercado Tech",
+    "Tecnologias Emergentes",
+    "Automação e RPA",
+    "Comunicação e Soft Skills no Mundo Tech"
+    ]
+    while True:
+        tema_escolhido = inquirer.select(
+            message='\nPreferêcia temática:\n',
+            choices=temas_eventos
+        ).execute()
+        
+        themes_preffer = []
+        if not tema_escolhido in themes_preffer:
+            themes_preffer.append(tema_escolhido)
+        
+        resposta = inquirer.select(
+            message='\nQuer escolher mais um evento?',
+            choices=['Sim', 'Não']
+        ).execute()
+        
+        if resposta == 'Sim':
+            continue
+        elif resposta == 'Não':
+            break
+    
+    participants_list.append(
+        {
+        'cpf': cpf,
+        'nome': nome,
+        'email': email,
+        'preferencias_tematicas': themes_preffer
+        }
+    )
+    
+    print(f'Participante {nome} cadastrado Cc')

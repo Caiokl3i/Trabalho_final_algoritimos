@@ -73,6 +73,7 @@ def menu_gerenciar_participantes():
         time.sleep(0.3)
         
         choices = [
+                {'name': '1. Cadastrar um novo participante', 'value': participants.register_new_partic},
                 {'name': '1. Inscrever participante em um evento', 'value': participants.add_participant_in_event},
                 {'name': '2. Buscar participante por CPF', 'value': participants.search_participant_for_cpf},
                 {'name': '3. Consultar informações de um participante', 'value': participants.info_participant_for_cpf},
