@@ -1,6 +1,7 @@
 from datetime import datetime
 from InquirerPy import inquirer
 import os
+import re
 
 def validar_data(data_string):
     '''
@@ -85,9 +86,15 @@ def name_validate():
         if any(letter.isdigit() for letter in name):
             print('\nO nome não pode conter números\n')
             continue
+        
         if not name:
             print('O nome não pode ser vazio')
             continue
+        
+        if not re.match(r'^[A-Za-zÀ-ÿ\s]+$', name):
+            print('\nO nome não pode conter caracteres especiais\n')
+            continue
+
         break
     
     return name
