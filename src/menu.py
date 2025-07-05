@@ -7,9 +7,7 @@ import utils
 
 def main_menu():
     """
-    Exibe o menu principal do sistema e executa a funcionalidade selecionada.
-
-    Utiliza InquirerPy para interação com funções diretamente nos valores.
+    Displays the main menu of the system and runs the chosen functionality.
     """
     
     utils.clear_screen()
@@ -39,7 +37,7 @@ def main_menu():
 
 def manage_events_menu():
     '''
-    Exibe o menu de gerenciamento das funcionalidades relacionadas aos eventos.
+    Displays the management menu for functionalities related to events.
     '''
     
     while True:
@@ -69,7 +67,7 @@ def manage_events_menu():
 
 def manage_participants_menu():
     '''
-    Exibe o menu de gerenciamento das funcionalidades relacionadas aos participantes.
+    Displays the management menu for functionalities related to participants.
     '''
     
     while True:
@@ -101,7 +99,7 @@ def manage_participants_menu():
 
 def statistics_reports_menu():
     '''
-    Exibe o menu de funcionalidades relacionadas aos relatorios e estatisticas.
+    Displays the management menu for functionalities related to statistics and reports.
     '''
     
     while True:

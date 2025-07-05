@@ -1,7 +1,7 @@
 from participant_data import participants_list
 
 '''
-Arquivo com os dados dos eventos em uma lista de dicionários
+Module containing event data stored as a list of dictionaries
 '''
 
 events_list = [

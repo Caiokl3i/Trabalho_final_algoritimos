@@ -1,5 +1,5 @@
 '''
-Arquivo com os dados dos participantes em uma lista de dicionários
+Module containing participant data stored as a list of dictionaries.
 '''
 
 participants_list = [

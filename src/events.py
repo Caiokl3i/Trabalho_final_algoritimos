@@ -5,8 +5,8 @@ import utils
 
 def display_event_list():
     '''
-    Exibe todos os eventos cadastrados com nome, data e tema central.
-    - Se a lista de eventos estiver vazia, exibe uma mensagem de aviso e encerra a função.
+    Displays all registered events with name, date, and main theme.
+    - If the event list is empty, shows a warning message and exits the function.
     '''
     
     utils.clear_screen()
@@ -22,8 +22,8 @@ def display_event_list():
 
 def display_participants_by_event():
     '''
-    Exibe a lista de eventos para que o usuário escolha um,
-    e então mostra os participantes do evento escolhido.
+    Displays a list of events for user selection, 
+    then shows the participants of the selected event.
     '''
     
     display_event_list()
@@ -56,7 +56,7 @@ def display_participants_by_event():
 
 def new_event_register():
     '''
-    Cadastra um novo evento na lista de eventos.
+    Adds a new event to the list of events.
     '''
     
     print(f'\n===== CADASTRO DE UM NOVO EVENTO =====\n')
@@ -96,7 +96,7 @@ def new_event_register():
 
 def delete_event():
     '''
-    Exclui o evento escolhido da lista de eventos
+    Removes the selected event from the event list
     '''
     
     if not events_list:
@@ -119,7 +119,7 @@ def delete_event():
 
 def display_events_by_theme():
     '''
-    Exibe todos os eventos organizados pelo tema escolhido.
+    Displays all events organized by the selected theme.
     '''
     
     if not events_list:
@@ -156,7 +156,7 @@ def display_events_by_theme():
 
 def number_events_by_theme():
     '''
-    Exibe a quantidade de eventos que cada tema possui
+    Displays the number of events for each theme
     '''
     
     if not events_list:

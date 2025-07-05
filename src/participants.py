@@ -23,7 +23,7 @@ def get_participant_for_cpf():
 
 def search_participant_for_cpf():
     '''
-    - Exibe as informações do participante através da busca pelo CPF
+    Displays participant information by searching with CPF
     '''
     
     participant = get_participant_for_cpf()
@@ -40,8 +40,7 @@ def search_participant_for_cpf():
 
 def edit_participant_data():
     '''
-    Exibe os dados do participante atraves do CPF e permite editar os
-    dados por um menu interativo.
+    Display participant information using CPF and enables editing via an interactive menu.
     '''
     
     participant = search_participant_for_cpf()
@@ -71,11 +70,11 @@ def edit_participant_data():
 
 def detect_duplicate_participants(cpf, event_name):
     '''
-    Função auxiliar que verifica se o CPF informado já está inscrito no evento.
+    Helper function that checks if the given CPF is already registered for the event.
 
-    Retorna:
-        True  – se o participante ainda não estiver no evento (pode adicionar)
-        False – se o participante já estiver inscrito (duplicata)
+    Returns:
+        True  – if the participant is not yet registered (can be added)
+        False – if the participant is already registered (duplicate)
     '''
 
     for event in events_list:
@@ -87,7 +86,7 @@ def detect_duplicate_participants(cpf, event_name):
 
 def display_events_by_participant():
     '''
-    Exibe todos os eventos em que um participante está inscrito (com base no CPF).
+    Displays all events a participant is registered in (based on CPF).
     '''
     
     cpf = utils.email_validate()
@@ -128,7 +127,7 @@ def display_events_each_partic():
 
 def add_participant_in_event():
     '''
-    Inscreve o aluno selecionado pelo CPF no evento escolhido
+    Registers the student identified by CPF for the selected event.
     '''
     
     cpf = utils.cpf_validate()
@@ -161,7 +160,7 @@ def add_participant_in_event():
 
 def register_new_participant():
     '''
-    Cadastra um novo participante no "banco de dados" de participantes
+    Registers a new participant in the participants' database.
     '''
     
     cpf = utils.cpf_validate()

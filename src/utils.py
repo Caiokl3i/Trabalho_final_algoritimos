@@ -4,7 +4,8 @@ import os
 
 def validar_data(data_string):
     '''
-    Valida formato de strings para datas com datetime
+    Validates whether a string is in the correct date format (dd/mm/yyyy) using datetime.
+        - Returns True if valid, False otherwise.
     '''
     
     try:
@@ -14,6 +15,12 @@ def validar_data(data_string):
         return False
 
 def cpf_validate():
+    '''
+    Prompts the user to enter a valid CPF (Brazilian individual taxpayer ID).
+    Ensures input is numeric and exactly 11 digits long.
+    Returns the validated CPF as a string.
+    '''
+    
     print()
     while True:
         cpf = inquirer.text(
@@ -31,6 +38,12 @@ def cpf_validate():
     return cpf
 
 def email_validate():
+    '''
+    Prompts the user to enter a valid email address.
+    Performs basic structure validation (non-empty, contains '@' and '.', does not start or end with '@').
+    Returns the validated email as a string.
+    '''
+    
     print()
     while True:
         email = inquirer.text(
@@ -56,6 +69,11 @@ def email_validate():
     return email
 
 def name_validate():
+    '''
+    Clears the terminal screen.
+    Compatible with Windows and Unix-based systems.
+    '''
+    
     print()
     while True:
         name = inquirer.text(
@@ -76,6 +94,11 @@ def name_validate():
 
 def clear_screen():
     os.system('cls' if os.name == 'nt' else 'clear')
+
+'''
+Predefined list of technology-related themes used for classifying events.
+Each item represents a specific event theme.
+'''
 
 event_themes = [
     "Inteligência Artificial",

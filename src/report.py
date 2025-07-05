@@ -4,8 +4,8 @@ from participant_data import participants_list
 
 def themes_frequency_report():
     '''
-    Exibe os temas mais frequentes entre os eventos cadastrados.
-    A lista é ordenada do mais frequente para o menos frequente.
+    Displays the most frequent themes among registered events.
+    The list is ordered from most to least frequent.
     '''
     
     counted_themes = Counter([event['tema_central'] for event in events_list])
@@ -19,7 +19,7 @@ def themes_frequency_report():
 
 def more_actives_partic():
     '''
-    Exibe os 3 participantes mais ativos em participações nos eventos.
+    Shows the three participants with the highest event participation
     '''
     
     cpfs = Counter(
@@ -36,7 +36,7 @@ def more_actives_partic():
 
 def average_theme():
     '''
-    Exibe a taxa média de participações por temas
+    Displays the average participation rate per theme.
     '''
     
     # quantidade de eventos por tema
@@ -64,7 +64,7 @@ def average_theme():
 
 def less_than_2_partic():
     '''
-    Exibe os eventos com menos de dois participantes (para posssível cancelamento)
+    Display events with less than two participants, indicating possible cancellation.
     '''
     
     events_quantity = {}
