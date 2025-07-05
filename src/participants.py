@@ -2,25 +2,18 @@ from participant_data import participants_list
 from event_data import events_list
 from InquirerPy import inquirer
 from collections import Counter
+import utils
 
-def search_participant_for_cpf():
+def get_participant_for_cpf():
     '''
     Função auxiliar que busca o participante por cpf
     '''
-    # arrumar como recebe o cpf
-    while True:
-        try:
-            cpf = int(input('\nDigite o CPF do Aluno: '))
-            if len(str(cpf)) == 11:
-                break
-            else:
-                print('CPF Inválido!')
-        except ValueError:
-            print('Digite apenas números')
     
     if not participants_list:
             print('A lista de participantes está vazia')
-            return None
+            return
+    
+    cpf = utils.cpf_validate()
     
     for participant in participants_list:
         if cpf == participant["cpf"]:
@@ -28,12 +21,12 @@ def search_participant_for_cpf():
         
     return None
 
-def display_info_participant_for_cpf():
+def search_participant_for_cpf():
     '''
     - Exibe as informações do participante através da busca pelo CPF
     '''
     
-    participant = search_participant_for_cpf()
+    participant = get_participant_for_cpf()
     
     if participant is None:
         print(f'O participante não existe!')
@@ -59,24 +52,9 @@ def edit_participant_data():
     
     print('\n----- INSIRA OS NOVOS DADOS DO PARTICIPANTE -----\n')
     
-    name = inquirer.text(
-        message='NOME: ',
-        validate=lambda result: len(result) > 0 or 'É obrigatório preencher esse campo!'
-    ).execute()
+    name = utils.name_validate()
     
-    while True:
-        email = inquirer.text(
-            message='EMAIL: ',
-            validate=lambda result: len(result) > 0 or 'É obrigatório preencher esse campo!'
-        ).execute()
-        email = email.replace(" ", "")
-        
-        if email[0] == '@' or email[len(email)-1] == '@':
-            print('Digite um email válido')
-        elif not '@' in email:
-            print('Digite um email válido')
-        else:
-            break
+    email = utils.validate_email()
     
     themes = set([event['tema_central'] for event in events_list])
     
@@ -85,7 +63,6 @@ def edit_participant_data():
         choices=themes
     ).execute()
     
-    # arrumar
     participant['nome'] = name
     participant['email'] = email
     participant['preferencias_tematicas'] = [thematic_preferences]
@@ -94,7 +71,7 @@ def edit_participant_data():
 
 def detect_duplicate_participants(cpf, event_name):
     '''
-    Verifica se o CPF informado já está inscrito no evento.
+    Função auxiliar que verifica se o CPF informado já está inscrito no evento.
 
     Retorna:
         True  – se o participante ainda não estiver no evento (pode adicionar)
@@ -113,15 +90,7 @@ def display_events_by_participant():
     Exibe todos os eventos em que um participante está inscrito (com base no CPF).
     '''
     
-    while True:
-        try:
-            cpf = int(input('\nDigite o CPF do aluno: '))
-            if len(str(cpf)) == 11:
-                break
-            else:
-                print('CPF Inválido!')
-        except ValueError:
-            print('Digite apenas números')
+    cpf = utils.email_validate()
     
     events_name_by_partic = [
         (event['nome'], event['data'])
@@ -136,7 +105,7 @@ def display_events_by_participant():
     for name, data in events_name_by_partic:
         print(f'- {name}\n   Data: {data}\n')
 
-def events_each_partic():
+def display_events_each_partic():
     '''
     Exibe a quantidade de eventos em que cada participante esteve presente, 
     ordenando do mais ativo para o menos ativo.
@@ -162,19 +131,15 @@ def add_participant_in_event():
     Inscreve o aluno selecionado pelo CPF no evento escolhido
     '''
     
-    while True:
-        try:
-            cpf = int(input('\nDigite o CPF do Aluno: \n'))
-            if len(str(cpf)) == 11:
-                break
-            else:
-                print('CPF Inválido!\n')
-        except ValueError:
-            print('Digite apenas números\n')
+    cpf = utils.cpf_validate()
     
     if not participants_list:
         print('\nA lista de participantes está vazia\n')
-        return None
+        return
+    
+    if not events_list:
+        print('\nA lista de eventos está vazia\n')
+        return
     
     events = [event['nome'] for event in events_list]
     event_name = inquirer.select(
@@ -191,89 +156,24 @@ def add_participant_in_event():
     for event in events_list:
         if event['nome'] == event_name:
             event['participantes_event'].append(participant)
+    
+    print(f' - {participant} - cadastrado no evento - {event_name} - com sucesso !')
 
 def register_new_participant():
     '''
     Cadastra um novo participante no "banco de dados" de participantes
     '''
     
-    while True:
-        cpf = inquirer.text(
-            message='CPF do novo participante (apenas números): '
-        ).execute()
+    cpf = utils.cpf_validate()
         
-        if not cpf.isdigit():
-            print('\n - CPF inválido! Digite apenas números\n')
-            continue
-        elif len(cpf) != 11:
-            print('\n - CPF inválido! Deve ter 11 digitos\n')
-            continue
-        
-        ixisting_cpf = any([partic['cpf'] == cpf for partic in participants_list])
-        if ixisting_cpf:
-            print('\n - O CPF já está cadastrado')
-            continue
-        
-        break
-    while True:
-        name = inquirer.text(
-            message='\nNome do participante:'
-        ).execute()
-        
-        name = name.strip()
-        
-        if any(letter.isdigit() for letter in name):
-            print('\nO nome não pode conter números\n')
-            continue
-        if not name:
-            print('O nome não pode ser vazio')
-            continue
-        break
+    name = utils.name_validate()
     
-    while True:
-        #tem forma melhor
-        email = inquirer.text(
-                message='\nEmail do participante:'
-            ).execute()
-            
-        if any(caracters == ' ' for caracters in email):
-            print('Email inválido')
-            continue
-        
-        if not '@' in email:
-            print('\nEmail inválido!')
-        elif not '.' in email:
-            print('\nEmail inválido!')
-            continue
-        
-        break
+    email = utils.email_validate()
     
-    event_themes = [
-    "Inteligência Artificial",
-    "Desenvolvimento Web",
-    "Segurança da Informação",
-    "DevOps",
-    "Experiência do Usuário (UX/UI)",
-    "Desenvolvimento Mobile",
-    "Banco de Dados",
-    "Ciência de Dados",
-    "Computação em Nuvem",
-    "Internet das Coisas (IoT)",
-    "Robótica",
-    "Desenvolvimento de Jogos",
-    "Programação para Iniciantes",
-    "Empreendedorismo Digital",
-    "Inclusão Digital",
-    "Ética e Tecnologia",
-    "Carreira e Mercado Tech",
-    "Tecnologias Emergentes",
-    "Automação e RPA",
-    "Comunicação e Soft Skills no Mundo Tech"
-    ]
     while True:
         chosen_theme = inquirer.select(
             message='\nPreferêcia temática:\n',
-            choices=event_themes
+            choices=utils.event_themes
         ).execute()
         
         tematics_preferences = []

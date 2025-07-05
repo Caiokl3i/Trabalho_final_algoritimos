@@ -3,6 +3,7 @@ import events
 import participants
 import report
 import time
+import utils
 
 def main_menu():
     """
@@ -11,13 +12,15 @@ def main_menu():
     Utiliza InquirerPy para interação com funções diretamente nos valores.
     """
     
+    utils.clear_screen()
+
     while True:
         time.sleep(0.3)
         
         choices = [
                 {'name': '1. Gerenciar eventos', 'value': manage_events_menu},
                 {'name': '2. Gerenciar participantes', 'value': manage_participants_menu},
-                {'name': '3. Estatísticas e relatórios', 'value': menu_relatorios_estatisticas},
+                {'name': '3. Estatísticas e relatórios', 'value': statistics_reports_menu},
                 {'name': '4. Encerrar sistema', 'value': False},
             ]
         
@@ -44,11 +47,11 @@ def manage_events_menu():
         
         choices = [
                 {'name': '1. Listar todos os eventos', 'value': events.display_event_list},
-                {'name': '2. Buscar eventos por tema', 'value': events.show_events_by_theme},
+                {'name': '2. Buscar eventos por tema', 'value': events.display_events_by_theme},
                 {'name': '3. Ver quantidade de eventos por tema', 'value': events.number_events_by_theme},
-                {'name': '4. Ver participantes de um evento específico', 'value': events.show_participants_by_event},
+                {'name': '4. Ver participantes de um evento específico', 'value': events.display_participants_by_event},
                 {'name': '5. Adicionar novo evento', 'value': events.new_event_register},
-                {'name': '6. Excluir evento', 'value': events.event_remove},
+                {'name': '6. Excluir evento', 'value': events.delete_event},
                 {'name': '7. Voltar', 'value': False}
             ]
         
@@ -73,14 +76,12 @@ def manage_participants_menu():
         time.sleep(0.3)
         
         choices = [
-                {'name': '1. Cadastrar um novo participante', 'value': participants.register_new_partic},
-                {'name': '1. Cadastrar um novo participante', 'value': participants.register_new_partic},
+                {'name': '1. Cadastrar um novo participante', 'value': participants.register_new_participant},
                 {'name': '1. Inscrever participante em um evento', 'value': participants.add_participant_in_event},
-                {'name': '2. Buscar participante por CPF', 'value': participants.info_participant_for_cpf},
-                {'name': '3. Consultar informações de um participante', 'value': participants.info_participant_for_cpf},
+                {'name': '2. Buscar participante por CPF', 'value': participants.search_participant_for_cpf},
                 {'name': '4. Editar dados de um participante', 'value': participants.edit_participant_data},
-                {'name': '5. Mostrar eventos de cada participante', 'value': participants.events_each_partic},
-                {'name': '5. Mostrar eventos de um participante específico', 'value': participants.show_events_by_participant},
+                {'name': '5. Mostrar eventos de cada participante', 'value': participants.display_events_each_partic},
+                {'name': '5. Mostrar eventos de um participante específico', 'value': participants.display_events_by_participant},
                 {'name': '5. Remover um particpante', 'value': participants.participant_delete},
                 {'name': '6. Voltar', 'value': False}
             ]
@@ -97,7 +98,8 @@ def manage_participants_menu():
         
         option()
 
-def menu_relatorios_estatisticas():
+
+def statistics_reports_menu():
     '''
     Exibe o menu de funcionalidades relacionadas aos relatorios e estatisticas.
     '''
