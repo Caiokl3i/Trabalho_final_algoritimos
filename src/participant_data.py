@@ -4,6 +4,12 @@ Arquivo com os dados dos participantes em uma lista de dicionários
 
 participants_list = [
     {
+        'cpf': '08136925127',
+        'nome': 'Caio Victor',
+        'email': 'caio.victor@email.com',
+        'preferencias_tematicas': ['Inteligência Artificial', 'Web']
+    },
+    {
         'cpf': '12345678900',
         'nome': 'Amanda Ribeiro',
         'email': 'amanda.ribeiro@email.com',
